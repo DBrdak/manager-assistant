@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  employeedb:
+    container_name: employeedb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  employee.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings__ConnectionString=mongodb://employeedb:27017"
+    depends_on:
+      - employeedb
+    ports:
+      - "8000:80"

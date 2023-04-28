@@ -6,7 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using MediatR;
 using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
+using WorkSchedule.Application.Behaviours;
 
 namespace WorkSchedule.Application
 {
@@ -14,8 +16,11 @@ namespace WorkSchedule.Application
     {
         public static IServiceCollection InjectApplication(this IServiceCollection services)
         {
+            services.AddFluentValidationAutoValidation();
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
+
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 
             return services;
         }

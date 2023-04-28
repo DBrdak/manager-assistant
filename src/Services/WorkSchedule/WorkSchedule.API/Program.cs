@@ -1,5 +1,6 @@
 
 using WorkSchedule.API.Extensions;
+using WorkSchedule.API.Middlewares;
 using WorkSchedule.Application;
 using WorkSchedule.Infrastructure;
 
@@ -11,11 +12,7 @@ namespace Shift.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddControllers();
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-            builder.Services.InjectApplication();
-            builder.Services.InjectInfrastructure(builder.Configuration);
+            builder.Services.InjectDependency(builder.Configuration);
 
             var app = builder.Build();
             
@@ -28,6 +25,7 @@ namespace Shift.API
             app.UseAuthorization();
             app.UseRouting();
             app.MapControllers();
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
             await app.MigrateDatabase();
 
             await app.RunAsync();

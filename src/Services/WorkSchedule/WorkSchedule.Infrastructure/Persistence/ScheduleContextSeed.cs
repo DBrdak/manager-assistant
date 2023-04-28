@@ -45,7 +45,7 @@ public static class ScheduleContextSeed
                     EndHour = "18:00"
                 });
                 shifts.AddRange(list);
-                var date = new DateTime(2023, 4, i).ToUniversalTime();
+                var date = new DateTime(2023, 4, i);
                 var shiftsForDay = new List<Shift>(shifts);
 
                 var workingDay = new WorkingDay()
@@ -61,8 +61,8 @@ public static class ScheduleContextSeed
 
             var workingMonth = new WorkingMonth()
             {   
-                MonthStartDate = new DateTime(2023, 4, 1).ToUniversalTime(),
-                MonthEndDate = new DateTime(2023, 4, 30).ToUniversalTime(),
+                MonthStartDate = new DateTime(2023, 4, 1),
+                MonthEndDate = new DateTime(2023, 4, 30),
                 MonthName = "April",
                 WorkingDays = workingDays,
                 IsApproved = true

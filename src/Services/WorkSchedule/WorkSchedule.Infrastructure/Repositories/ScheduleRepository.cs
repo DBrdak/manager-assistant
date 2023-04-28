@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.JavaScript;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -19,22 +20,38 @@ namespace WorkSchedule.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<WorkingMonth?> GetSchedule(string monthName) =>
-            await _context.Set<WorkingMonth>()
+        public async Task<WorkingMonth?> GetSchedule(string monthName, string employeeName)
+        {
+            var month = await _context.Set<WorkingMonth>()
                 .Include(wm => wm.WorkingDays.OrderBy(wd => wd.Date))
-                .ThenInclude(wd => wd.Shifts.OrderBy(s => int.Parse(s.StartHour)))
+                .ThenInclude(wd => wd.Shifts.OrderBy(s => s.StartHour))
                 .AsNoTracking()
                 .FirstOrDefaultAsync(wm => wm.MonthName == monthName
-                                           && wm.MonthStartDate.Year == DateTime.Now.Year);
+                                           && (wm.MonthStartDate.Year == DateTime.Now.Year
+                                               || wm.MonthEndDate.Year == DateTime.Now.Year));
 
-        public async Task<WorkingMonth> GetScheduleForEmployee(string employeeName)
-        {
-            throw new NotImplementedException();
+            if(employeeName is not null && employeeName is not "") 
+                month.WorkingDays = month.WorkingDays
+                .Where(wd => wd.Shifts.Any(s => s.EmployeeName == employeeName));
+
+            return month;
         }
 
-        public async Task<bool> PrepareSchedule(List<WorkingDay> workingDays)
+        public async Task<bool> PrepareSchedule(WorkingMonth schedule)
         {
-            throw new NotImplementedException();
+            var copy = await _context.Set<WorkingMonth>()
+                .FirstOrDefaultAsync(wm => wm.MonthName == schedule.MonthName ||
+                                           wm.MonthStartDate == schedule.MonthStartDate ||
+                                           wm.MonthEndDate == schedule.MonthEndDate);
+
+            if (copy is not null)
+                return false;
+
+            await _context.AddAsync(schedule);
+
+            var result = await _context.SaveChangesAsync();
+
+            return result > 0;
         }
 
         public async Task<bool> ApproveSchedule(string monthName)
@@ -52,7 +69,17 @@ namespace WorkSchedule.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<bool> UpdateAvailability(Shift availability)
+        public async Task<bool> UpdateShift(Shift availability)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> RemoveSchedule(Guid scheduleId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> SendEmailToEmployees()
         {
             throw new NotImplementedException();
         }

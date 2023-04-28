@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace WorkSchedule.Domain.Entities
         public string MonthName { get; set; }
         public DateTime MonthStartDate { get; set; }
         public DateTime MonthEndDate { get; set; }
-        public IEnumerable<WorkingDay> WorkingDays { get; set; }
+        public IEnumerable<WorkingDay> WorkingDays { get; set; } = new List<WorkingDay>();
         public bool IsApproved { get; set; } = false;
     }
 }

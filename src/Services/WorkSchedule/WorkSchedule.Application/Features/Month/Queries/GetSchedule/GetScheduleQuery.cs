@@ -9,11 +9,11 @@ using WorkSchedule.Domain.Entities;
 
 namespace WorkSchedule.Application.Features.Month.Queries.GetMonth
 {
-    public class GetMonthQuery : IRequest<Result<WorkingMonth>>
+    public class GetScheduleQuery : IRequest<Result<WorkingMonth>>
     {
         public string Month { get; set; }
 
-        public GetMonthQuery(string month)
+        public GetScheduleQuery(string month)
         {
             Month = month;
         }

@@ -19,12 +19,53 @@ namespace WorkSchedule.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<WorkingMonth> GetMonth(string monthName) =>
+        public async Task<WorkingMonth?> GetSchedule(string monthName) =>
             await _context.Set<WorkingMonth>()
-                .Include(wm => wm.WorkingDays)
-                .ThenInclude(wd => wd.Shifts)
+                .Include(wm => wm.WorkingDays.OrderBy(wd => wd.Date))
+                .ThenInclude(wd => wd.Shifts.OrderBy(s => int.Parse(s.StartHour)))
                 .AsNoTracking()
-                .FirstOrDefaultAsync(wm => wm.MonthName == monthName 
+                .FirstOrDefaultAsync(wm => wm.MonthName == monthName
                                            && wm.MonthStartDate.Year == DateTime.Now.Year);
+
+        public async Task<WorkingMonth> GetScheduleForEmployee(string employeeName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> PrepareSchedule(List<WorkingDay> workingDays)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> ApproveSchedule(string monthName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> AddAvailability(Shift availability)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> RemoveAvailability(Guid availabilityId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> UpdateAvailability(Shift availability)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> PostSchdule(string monthName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> SetAvailability(Shift availability)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

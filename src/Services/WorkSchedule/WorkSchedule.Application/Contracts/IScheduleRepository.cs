@@ -11,6 +11,18 @@ namespace WorkSchedule.Application.Contracts
 {
     public interface IScheduleRepository
     {
-        Task<WorkingMonth> GetMonth(string monthName);
+        Task<WorkingMonth?> GetSchedule(string monthName);
+
+        Task<WorkingMonth> GetScheduleForEmployee(string employeeName);
+
+        Task<bool> PrepareSchedule(List<WorkingDay> workingDays);
+
+        Task<bool> ApproveSchedule(string monthName);
+
+        Task<bool> AddAvailability(Shift availability);
+
+        Task<bool> RemoveAvailability(Guid availabilityId);
+
+        Task<bool> UpdateAvailability(Shift availability);
     }
 }

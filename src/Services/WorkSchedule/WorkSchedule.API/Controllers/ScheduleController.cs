@@ -19,9 +19,9 @@ namespace WorkSchedule.API.Controllers
 
         [HttpGet("{month}")]
         [ProducesResponseType(typeof(WorkingMonth), 200)]
-        public async Task<IActionResult> GetMonthSchedule(string month)
+        public async Task<IActionResult> GetSchedule(string month)
         {
-            var query = new GetMonthQuery(month);
+            var query = new GetScheduleQuery(month);
             var result = await _mediator.Send(query);
 
             return HandleResult(result);

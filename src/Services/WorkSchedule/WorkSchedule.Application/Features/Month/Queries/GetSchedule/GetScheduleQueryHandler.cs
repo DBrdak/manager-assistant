@@ -11,11 +11,11 @@ using WorkSchedule.Domain.Entities;
 
 namespace WorkSchedule.Application.Features.Month.Queries.GetMonth
 {
-    public class GetMonthQueryHandler : IRequestHandler<GetMonthQuery, Result<WorkingMonth>>
+    public class GetScheduleQueryHandler : IRequestHandler<GetMonthQuery, Result<WorkingMonth>>
     {
         private readonly IScheduleRepository _repository;
 
-        public GetMonthQueryHandler(IScheduleRepository repository)
+        public GetScheduleQueryHandler(IScheduleRepository repository)
         {
             _repository = repository;
         }
@@ -23,7 +23,7 @@ namespace WorkSchedule.Application.Features.Month.Queries.GetMonth
         public async Task<Result<WorkingMonth>> Handle(GetMonthQuery request, CancellationToken cancellationToken)
         {
             var workingMonth = await _repository
-                .GetMonth(request.Month);
+                .GetSchedule(request.Month);
 
             if (workingMonth == null)
                 return Result<WorkingMonth>.Failure("No schedule for this month");

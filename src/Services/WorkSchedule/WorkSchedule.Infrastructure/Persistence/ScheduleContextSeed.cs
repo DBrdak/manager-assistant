@@ -65,7 +65,7 @@ public static class ScheduleContextSeed
                 MonthEndDate = new DateTime(2023, 4, 30).ToUniversalTime(),
                 MonthName = "April",
                 WorkingDays = workingDays,
-                IsCompleted = true
+                IsApproved = true
             };
 
             context.Add(workingMonth);

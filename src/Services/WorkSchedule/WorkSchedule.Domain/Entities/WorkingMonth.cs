@@ -13,6 +13,6 @@ namespace WorkSchedule.Domain.Entities
         public DateTime MonthStartDate { get; set; }
         public DateTime MonthEndDate { get; set; }
         public IEnumerable<WorkingDay> WorkingDays { get; set; }
-        public bool IsCompleted { get; set; } = false;
+        public bool IsApproved { get; set; } = false;
     }
 }

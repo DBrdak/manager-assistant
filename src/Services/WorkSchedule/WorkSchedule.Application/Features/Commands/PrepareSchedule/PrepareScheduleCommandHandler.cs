@@ -11,19 +11,19 @@ using WorkSchedule.Application.Models;
 
 namespace WorkSchedule.Application.Features.Month.Commands.PrepareSchedule
 {
-    public class PrepareScheduleRequestHandler : ICommandHandler<PrepareScheduleRequest, Result<Unit>>
+    public class PrepareScheduleCommandHandler : ICommandHandler<PrepareScheduleCommand, Result<Unit>>
     {
         private readonly IScheduleRepository _repository;
 
-        public PrepareScheduleRequestHandler(IScheduleRepository repository)
+        public PrepareScheduleCommandHandler(IScheduleRepository repository)
         {
             _repository = repository;
         }
 
 
-        public async Task<Result<Unit>> Handle(PrepareScheduleRequest request, CancellationToken cancellationToken)
+        public async Task<Result<Unit>> Handle(PrepareScheduleCommand command, CancellationToken cancellationToken)
         {
-            var result = await _repository.PrepareSchedule(request.Schedule);
+            var result = await _repository.PrepareSchedule(command.Schedule);
 
             return result ? 
                 Result<Unit>.Success(Unit.Value) :

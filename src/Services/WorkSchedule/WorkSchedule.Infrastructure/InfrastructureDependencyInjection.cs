@@ -17,7 +17,7 @@ namespace WorkSchedule.Infrastructure
         public static IServiceCollection InjectInfrastructure(this IServiceCollection services, IConfiguration config)
         {
             services.AddDbContext<ScheduleContext>(opt =>
-                opt.UseNpgsql(config.GetConnectionString("DefaultConnection")));
+                opt.UseNpgsql(config["ConnectionStrings:DefaultConnection"]));
 
             services.AddScoped(typeof(IScheduleRepository), typeof(ScheduleRepository));
 

@@ -10,5 +10,5 @@ using WorkSchedule.Domain.Entities;
 
 namespace WorkSchedule.Application.Features.Month.Commands.PrepareSchedule
 {
-    public sealed record PrepareScheduleRequest(WorkingMonth Schedule) : ICommand<Result<Unit>>;
+    public sealed record PrepareScheduleCommand(WorkingMonth Schedule) : ICommand<Result<Unit>>;
 }

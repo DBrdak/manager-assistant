@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WorkSchedule.Application.Contracts;
+using WorkSchedule.Application.Core.Extensions;
+using WorkSchedule.Application.Features.Month.Commands.AddAvailability;
 using WorkSchedule.Domain.Entities;
 using WorkSchedule.Infrastructure.Persistence;
 
@@ -56,40 +58,77 @@ namespace WorkSchedule.Infrastructure.Repositories
 
         public async Task<bool> ApproveSchedule(string monthName)
         {
-            throw new NotImplementedException();
+            var schedule = await _context.Set<WorkingMonth>()
+                .FirstOrDefaultAsync(wm => wm.MonthName == monthName);
+
+            if(schedule is null)
+                return false;
+
+            schedule.IsApproved = true;
+
+            var result = await _context.SaveChangesAsync();
+
+            return result > 0;
         }
 
-        public async Task<bool> AddAvailability(Shift availability)
+        public async Task<bool> AddAvailability(AddAvailabilityCommand command)
         {
-            throw new NotImplementedException();
+            var workingDay = await _context.Set<WorkingDay>()
+                .FirstOrDefaultAsync(wd => wd.Date.Day == command.WorkingDay.Day
+                                    && wd.Date.Month == command.WorkingDay.Month);
+            
+            if (workingDay is null)
+                return false;
+            
+            workingDay.Shifts = workingDay.Shifts.Append(command.Availability).ToList();
+            var result = await _context.SaveChangesAsync();
+
+            return result > 0;
         }
 
         public async Task<bool> RemoveAvailability(Guid availabilityId)
         {
-            throw new NotImplementedException();
+            var availability = await _context.Set<Shift>()
+                .FindAsync(availabilityId);
+
+            if (availability is null) 
+                return false;
+
+            _context.Remove(availability);
+            var result = await _context.SaveChangesAsync();
+
+            return result > 0;
         }
 
-        public async Task<bool> UpdateShift(Shift availability)
+        public async Task<bool> UpdateShift(Shift shift)
         {
-            throw new NotImplementedException();
+            var shiftToUpdate = await _context.Set<Shift>()
+                .FindAsync(shift.Id);
+
+            if(shiftToUpdate is null)
+                return false;
+
+            shiftToUpdate.Replace(shift);
+            var result = await _context.SaveChangesAsync();
+
+            return result > 0;
         }
 
-        public async Task<bool> RemoveSchedule(Guid scheduleId)
+        public async Task<bool> RemoveSchedule(string monthName)
         {
-            throw new NotImplementedException();
+            var schedule = await _context.Set<WorkingMonth>()
+                .FirstOrDefaultAsync(wm => wm.MonthName == monthName);
+
+            if (schedule is null)
+                return false;
+
+            _context.Remove(schedule);
+            var result = await _context.SaveChangesAsync();
+
+            return result > 0;
         }
 
         public async Task<bool> SendEmailToEmployees()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<bool> PostSchdule(string monthName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<bool> SetAvailability(Shift availability)
         {
             throw new NotImplementedException();
         }

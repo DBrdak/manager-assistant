@@ -9,5 +9,5 @@ using WorkSchedule.Application.Models;
 
 namespace WorkSchedule.Application.Features.Commands.RemoveSchedule
 {
-    public record RemoveScheduleCommand(Guid ScheduleId) : ICommand<Result<Unit>>;
+    public record RemoveScheduleCommand(string MonthName) : ICommand<Result<Unit>>;
 }

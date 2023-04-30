@@ -9,7 +9,20 @@ services:
     volumes:
       - mongo_data:/data/db
 
+  workscheduledb:
+    container_name: workscheduledb
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin1234
+      - POSTGRES_DB=ScheduleDb
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
   employee.api:
+    container_name: employee.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "DatabaseSettings__ConnectionString=mongodb://employeedb:27017"
@@ -17,3 +30,14 @@ services:
       - employeedb
     ports:
       - "8000:80"
+
+  workschedule.api:
+    container_name: workschedule.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings__DefaultConnection=Server=workscheduledb;Port=5432;Database=ScheduleDb;User Id=admin;Password=admin1234"
+    depends_on:
+      - workscheduledb
+    ports:
+      - "8001:80"
+

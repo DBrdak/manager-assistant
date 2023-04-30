@@ -22,7 +22,7 @@ namespace WorkSchedule.Application.Features.Commands.RemoveSchedule
 
         public async Task<Result<Unit>> Handle(RemoveScheduleCommand request, CancellationToken cancellationToken)
         {
-            var result = await _repository.RemoveSchedule(request.ScheduleId);
+            var result = await _repository.RemoveSchedule(request.MonthName);
 
             return result ?
                     Result<Unit>.Success(Unit.Value) :

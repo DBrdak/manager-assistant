@@ -21,7 +21,7 @@ namespace WorkSchedule.Application.Features.Month.Commands.AddAvailability
 
         public async Task<Result<Unit>> Handle(AddAvailabilityCommand request, CancellationToken cancellationToken)
         {
-            var result = await _repository.AddAvailability(request.Availability);
+            var result = await _repository.AddAvailability(request);
 
             return result ? 
                 Result<Unit>.Success(Unit.Value) : 

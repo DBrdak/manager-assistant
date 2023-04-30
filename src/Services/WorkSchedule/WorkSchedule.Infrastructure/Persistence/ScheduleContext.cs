@@ -31,6 +31,11 @@ namespace WorkSchedule.Infrastructure.Persistence
             modelBuilder.Entity<WorkingDay>()
                 .Property(wd => wd.Date).HasColumnType("DATE");
 
+            modelBuilder.Entity<WorkingDay>()
+                .HasMany(wd => wd.Shifts)
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade);
+
             //modelBuilder.Entity<WorkingDay>()
             //    .Property(wd => wd.DayOpen).HasColumnType("TIMESTAMP");
 
@@ -42,6 +47,11 @@ namespace WorkSchedule.Infrastructure.Persistence
 
             modelBuilder.Entity<WorkingMonth>()
                 .Property(wm => wm.MonthEndDate).HasColumnType("DATE");
+
+            modelBuilder.Entity<WorkingMonth>()
+                .HasMany(wm => wm.WorkingDays)
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

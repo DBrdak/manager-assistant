@@ -9,7 +9,7 @@ using WorkSchedule.Domain.Entities;
 
 namespace WorkSchedule.Application.Features.Commands.PrepareSchedule;
 
-public class PrepareScheduleValidator : AbstractValidator<PrepareScheduleRequest>
+public class PrepareScheduleValidator : AbstractValidator<PrepareScheduleCommand>
 {
     public PrepareScheduleValidator()
     {

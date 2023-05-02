@@ -1,6 +1,9 @@
 ﻿using Employee.API.Data;
 using Employee.API.Middlewares;
 using Employee.API.Repositories;
+using System.Reflection;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 
 namespace Employee.API.Extensions
 {
@@ -14,6 +17,9 @@ namespace Employee.API.Extensions
 
             services.AddScoped<IEmployeeContext, EmployeeContext>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+
+            services.AddFluentValidationAutoValidation();
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
             return services;
         }

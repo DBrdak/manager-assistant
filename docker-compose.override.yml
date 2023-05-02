@@ -7,7 +7,7 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - mongo_data:/data/db
+      - mongo_data:/data/db/employee
 
   workscheduledb:
     container_name: workscheduledb
@@ -20,6 +20,14 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+
+  payrolldb:
+    container_name: payrolldb
+    restart: always
+    ports:
+      - "27018:27018"
+    volumes:
+      - mongo_data:/data/db/payroll
 
   employee.api:
     container_name: employee.api
@@ -41,3 +49,12 @@ services:
     ports:
       - "8001:80"
 
+  payroll.api:
+    container_name: payroll.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings__ConnectionString=mongodb://payrolldb:27017"
+    depends_on:
+      - payrolldb
+    ports:
+      - "8002:80"

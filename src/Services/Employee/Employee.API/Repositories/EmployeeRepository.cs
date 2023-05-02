@@ -24,18 +24,18 @@ namespace Employee.API.Repositories
 
         public async Task<bool> HireEmployee(Entities.Employee newEmployee)
         {
-            var check = await _context.Employees
+            var isCopy = await _context.Employees
                 .Find(e => e.UniqueName == newEmployee.UniqueName).AnyAsync();
 
-            if(check)
+            if(isCopy)
                 return false;
 
             await _context.Employees.InsertOneAsync(newEmployee);
 
-            check = await _context.Employees
+            var isCreated = await _context.Employees
                 .Find(e => e.UniqueName == newEmployee.UniqueName).AnyAsync();
 
-            return check;
+            return isCreated;
         }
 
         public async Task<bool> UpdateEmployeeData(Entities.Employee employee)

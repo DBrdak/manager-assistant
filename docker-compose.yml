@@ -7,6 +7,9 @@ services:
   workscheduledb:
     image: postgres
 
+  payrolldb:
+    image: mongo
+
   employee.api:
     image: ${DOCKER_REGISTRY-}employeeapi
     build:
@@ -18,6 +21,12 @@ services:
     build:
       context: .
       dockerfile: src/Services/WorkSchedule/WorkSchedule.API/Dockerfile
+
+  payroll.api:
+    image: ${DOCKER_REGISTRY-}payrollapi
+    build:
+      context: .
+      dockerfile: src/Services/Payroll/Payroll.API/Dockerfile
 
 volumes:
   mongo_data:

@@ -26,6 +26,7 @@ namespace Employee.API.Entities
         public string BuildingNumber { get; set; }
 
         // Financial Info
+        [BsonRequired]
         public string IBAN { get; set; }
         public string SWIFT { get; set; }
 

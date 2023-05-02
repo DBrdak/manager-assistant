@@ -25,11 +25,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkSchedule.Domain", "src\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Payroll", "Payroll", "{E244F1D1-C978-4EF9-91ED-B920B88C9DC5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payroll.API", "src\Services\Payroll\Payroll.API\Payroll.API.csproj", "{989BDCAB-723B-4B65-B0B2-46CE5EB37663}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Payroll.API", "src\Services\Payroll\Payroll.API\Payroll.API.csproj", "{989BDCAB-723B-4B65-B0B2-46CE5EB37663}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WorkTimeTracker", "WorkTimeTracker", "{5D261091-A837-481D-9087-5771022A91B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkTimeTracker.Grpc", "src\Services\WorkTimeTracker\WorkTimeTracker.Grpc\WorkTimeTracker.Grpc.csproj", "{140748D5-E398-497F-9841-44BF79777B36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkTimeTracker.Grpc", "src\Services\WorkTimeTracker\WorkTimeTracker.Grpc\WorkTimeTracker.Grpc.csproj", "{140748D5-E398-497F-9841-44BF79777B36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

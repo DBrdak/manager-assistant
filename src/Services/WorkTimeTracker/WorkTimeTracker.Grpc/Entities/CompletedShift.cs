@@ -17,10 +17,15 @@ namespace WorkTimeTracker.Grpc.Entities
         public DateTime ShiftEnd { get; set; }
 
         public bool IsPaid { get; set; }
+        [JsonIgnore]
         public DateTime ExpiryDate { get; set; }
-        public TimeSpan NumberOfHours => ShiftEnd - ShiftStart;
+        [BsonIgnore]
+        [JsonIgnore]
+        private TimeSpan numberOfHours => ShiftEnd - ShiftStart;
+        public float NumberOfHours => (float)numberOfHours.TotalMinutes/60.0f;
 
         [JsonConstructor]
+        [BsonConstructor]
         public CompletedShift(string employeeName, DateTime shiftStart, DateTime shiftEnd)
         {
             EmployeeName = employeeName;
@@ -28,6 +33,11 @@ namespace WorkTimeTracker.Grpc.Entities
             ShiftEnd = shiftEnd;
             IsPaid = false;
             ExpiryDate = DateTime.Now.AddYears(1);
+        }
+
+        public CompletedShift()
+        {
+            
         }
     }
 }

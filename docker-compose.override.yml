@@ -9,6 +9,22 @@ services:
     volumes:
       - mongo_data:/data/db/employee
 
+  payrolldb:
+    container_name: payrolldb
+    restart: always
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo_data:/data/db/payroll
+
+  worktimetrackerdb:
+      container_name: worktimetrackerdb
+      restart: always
+      ports:
+        - "27019:27017"
+      volumes:
+        - mongo_data:/data/db/worktimetracker
+
   workscheduledb:
     container_name: workscheduledb
     environment:
@@ -20,14 +36,6 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-
-  payrolldb:
-    container_name: payrolldb
-    restart: always
-    ports:
-      - "27018:27018"
-    volumes:
-      - mongo_data:/data/db/payroll
 
   employee.api:
     container_name: employee.api
@@ -58,3 +66,13 @@ services:
       - payrolldb
     ports:
       - "8002:80"
+
+  worktimetracker.grpc:
+    container_name: worktimetracker.grpc
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings__ConnectionString=mongodb://worktimetrackerdb:27017"
+    depends_on:
+      - worktimetrackerdb
+    ports:
+      - "8003:80"

@@ -30,8 +30,8 @@ namespace WorkTimeTracker.Grpc.Middlewares
                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
                 var response = _env.IsDevelopment()
-                    ? new ApiException(500, e.Message, e.StackTrace)
-                    : new ApiException(500, "Internal Server Error");
+                    ? new ApiException(e.Message, e.StackTrace)
+                    : new ApiException("Internal Server Error", e.Message);
 
                 var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
 

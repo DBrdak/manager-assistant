@@ -10,6 +10,9 @@ services:
   payrolldb:
     image: mongo
 
+  worktimetrackerdb:
+    image: mongo
+
   employee.api:
     image: ${DOCKER_REGISTRY-}employeeapi
     build:
@@ -27,6 +30,12 @@ services:
     build:
       context: .
       dockerfile: src/Services/Payroll/Payroll.API/Dockerfile
+
+  worktimetracker.grpc:
+    image: ${DOCKER_REGISTRY-}worktimetrackergrpc
+    build:
+      context: .
+      dockerfile: src/Services/WorkTimeTracker/WorkTimeTracker.Grpc/Dockerfile
 
 volumes:
   mongo_data:

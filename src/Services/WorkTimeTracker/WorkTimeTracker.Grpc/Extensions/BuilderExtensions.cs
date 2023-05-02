@@ -10,12 +10,14 @@ namespace WorkTimeTracker.Grpc.Extensions
     {
         public static IServiceCollection RegisterDependency(this IServiceCollection services, IConfiguration config)
         {
+            services.AddGrpc();
+
             services.AddScoped<IWorkTimeTrackerContext, WorkTimeTrackerContext>();
             services.AddScoped<IWorkTimeTrackerRepository, WorkTimeTrackerRepository>();
 
             services.AddFluentValidationAutoValidation();
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             services.AddControllers();
             services.AddEndpointsApiExplorer();

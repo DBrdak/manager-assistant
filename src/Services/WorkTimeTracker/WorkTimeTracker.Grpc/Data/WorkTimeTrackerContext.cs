@@ -20,7 +20,7 @@ namespace WorkTimeTracker.Grpc.Data
             var indexKeysDefinition = Builders<CompletedShift>.IndexKeys.Ascending(x => x.ExpiryDate);
             var indexModel = new CreateIndexModel<CompletedShift>(indexKeysDefinition);
             CompletedShifts.Indexes.CreateOne(indexModel);
-            //CompletedShifts.SeedData();
+            CompletedShifts.Seed();
         }
     }
 }

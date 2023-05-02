@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+option csharp_namespace = "WorkTimeTracker.Grpc.Protos";
+import "google/protobuf/empty.proto";
+
+service WorkTimeTrackerService{
+	rpc GetCompletedShiftsByEmployee (GetCompletedShiftsRequest) returns (GetCompletedShiftsResponse);
+
+	rpc AddCompletedShift (AddCompletedShiftRequest) returns (google.protobuf.Empty);
+
+	rpc SetAsPaid (SetAsPaidRequest) returns (SetAsPaidResponse);
+
+	rpc RemoveCompletedShift (RemoveCompletedShiftRequest) returns (RemoveCompletedShiftResponse);
+}
+
+message GetCompletedShiftsRequest {
+	string employeeName = 1;
+}
+
+message CompletedShiftModel {
+  int32 id = 1;
+  int32 employeeName = 2;
+  string startTime = 3;
+  string endTime = 4;
+  bool isPaid = 5;
+  string numberOfHours = 6;
+}
+
+message GetCompletedShiftsResponse {
+	repeated CompletedShiftModel completedShifts = 1;
+}
+
+message AddCompletedShiftRequest {
+  CompletedShiftModel completedShift = 1;
+}
+
+message SetAsPaidRequest {
+  string completedShiftId = 1;
+}
+
+message SetAsPaidResponse {
+	bool result = 1;
+}
+
+message RemoveCompletedShiftRequest {
+  string completedShiftId = 1;
+}
+
+message RemoveCompletedShiftResponse {
+	bool result = 1;
+}

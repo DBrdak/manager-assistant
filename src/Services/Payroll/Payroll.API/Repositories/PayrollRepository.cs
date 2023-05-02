@@ -48,5 +48,10 @@ namespace Payroll.API.Repositories
             return result.DeletedCount > 0 && 
                    result.IsAcknowledged;
         }
+
+        public async Task<bool> SendEmail()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

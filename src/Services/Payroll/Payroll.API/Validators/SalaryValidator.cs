@@ -8,8 +8,6 @@ namespace Payroll.API.Validators
         public SalaryValidator()
         {
             RuleFor(s => s)
-                .Must(s => s.Hours > 0)
-                .WithMessage("Hour count should be positive")
                 .Must(s => s.PeriodPaid.From < s.PeriodPaid.To)
                 .WithMessage("Invalid payment period")
                 .Must(s => s.Wage > 0)

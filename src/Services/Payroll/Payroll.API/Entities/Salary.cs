@@ -25,12 +25,12 @@ namespace Payroll.API.Entities
 
         
         public Salary(string employeeName, string email, string phone, 
-            string iban, string swift, decimal hours, decimal additions, 
+            string iban, string swift, decimal additions, 
             decimal wage, DateTime paidFrom, DateTime paidTo)
         {
             EmployeeName = employeeName;
             EmployeeFinancialData = new TransferData(email, phone, iban, swift);
-            Hours = hours;
+            Hours = 0;
             Additions = additions;
             Wage = wage;
             PaymentDate = null;
@@ -41,11 +41,11 @@ namespace Payroll.API.Entities
 
         [JsonConstructor]
         public Salary(string employeeName, TransferData employeeFinancialData,
-            decimal hours, decimal additions, decimal wage, Period periodPaid)
+            decimal additions, decimal wage, Period periodPaid)
         {
             EmployeeName = employeeName;
             EmployeeFinancialData = employeeFinancialData;
-            Hours = hours;
+            Hours = 0;
             Additions = additions;
             Wage = wage;
             PaymentDate = null;

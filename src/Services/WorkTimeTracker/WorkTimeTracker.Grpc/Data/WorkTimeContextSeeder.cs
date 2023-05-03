@@ -10,10 +10,10 @@ public static class WorkTimeContextSeeder
 
         var completedShifts = new List<CompletedShift>
         {
-            new CompletedShift("Adam", DateTime.Now.AddDays(-2).AddHours(-14), DateTime.Now.AddDays(-2).AddHours(-8)),
-            new CompletedShift("Emily", DateTime.Now.AddDays(-2).AddHours(-20), DateTime.Now.AddDays(-2).AddHours(-12)),
-            new CompletedShift("David", DateTime.Now.AddDays(-2).AddHours(-20), DateTime.Now.AddDays(-2).AddHours(-14)),
-            new CompletedShift("Sarah", DateTime.Now.AddDays(-2).AddHours(-24), DateTime.Now.AddDays(-2).AddHours(-16)),
+            new CompletedShift("Adam", new DateTime(2023, 1, 15, 8, 0, 0), new DateTime(2023, 1, 15, 14, 0, 0)),
+            new CompletedShift("Emily", new DateTime(2023, 1, 15, 12, 0, 0), new DateTime(2023, 1, 15, 20, 0, 0)),
+            new CompletedShift("David", new DateTime(2023, 1, 15, 16, 0, 0), new DateTime(2023, 1, 15, 21, 30, 0)),
+            new CompletedShift("Sarah", new DateTime(2023, 1, 15, 20, 0, 0), new DateTime(2023, 1, 16, 0, 0, 0)),
         };
 
         data.InsertMany(completedShifts);

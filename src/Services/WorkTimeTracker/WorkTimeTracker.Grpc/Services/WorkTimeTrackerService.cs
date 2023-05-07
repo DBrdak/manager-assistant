@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Amazon.Runtime.Internal;
+using AutoMapper;
 using FluentValidation;
 using Google.Protobuf.Collections;
 using Google.Protobuf.WellKnownTypes;
@@ -36,12 +37,18 @@ namespace WorkTimeTracker.Grpc.Services
 
         public override async Task<AddCompletedShiftResponse> AddCompletedShift(AddCompletedShiftRequest request, ServerCallContext context)
         {
+            var preValidator = new CompletedShiftPostModelValidator();
+            var result = (await preValidator.ValidateAsync(request.CompletedShift)).IsValid;
+
+            if (!result)
+                return new() { Result = false };
+
             var completedShift = _mapper.Map<CompletedShift>(request.CompletedShift);
 
             var validator = new CompletedShiftValidator();
-            var result = await validator.ValidateAsync(completedShift);
+            result = (await validator.ValidateAsync(completedShift)).IsValid;
 
-            if (!result.IsValid)
+            if (!result)
                 return new() { Result = false };
 
             await _repository.AddCompletedShift(completedShift);

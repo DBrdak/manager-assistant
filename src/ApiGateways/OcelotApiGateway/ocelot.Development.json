@@ -1,0 +1,108 @@
+{
+  "Routes": [
+    // Employee API
+    {
+      "DownstreamPathTemplate": "/api/v1/employee",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "employee.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/employee",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
+      "FileCacheOptions": { "TtlSeconds": 30 }
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/employee/{employeeId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "employee.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/employee/{employeeId}",
+      "UpstreamHttpMethod": [ "DELETE" ]
+    },
+    //WorkSchedule API
+    {
+      "DownstreamPathTemplate": "/api/v1/schedule/{monthName}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "workschedule.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/schedule/{monthName}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/schedule/{monthName}/{shiftId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "workschedule.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/schedule/{monthName}/{shiftId}",
+      "UpstreamHttpMethod": [ "POST", "DELETE" ]
+    },
+    //Payroll API
+    {
+      "DownstreamPathTemplate": "/api/v1/payroll",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "payroll.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/payroll",
+      "UpstreamHttpMethod": [ "GET", "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/payroll/{employeeName}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "payroll.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/payroll/{employeeName}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/payroll/{salaryId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "payroll.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/payroll/{salaryId}",
+      "UpstreamHttpMethod": [ "PUT", "DELETE" ]
+    },
+    // Manager Aggregator
+    {
+      "DownstreamPathTemplate": "/api/v1/aggregator/{employeeName}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "manageraggregator",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/aggregator/{employeeName}",
+      "UpstreamHttpMethod": [ "GET" ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5010"
+  }
+}

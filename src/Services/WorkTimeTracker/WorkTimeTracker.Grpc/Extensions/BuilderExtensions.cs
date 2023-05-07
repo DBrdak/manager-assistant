@@ -14,7 +14,7 @@ namespace WorkTimeTracker.Grpc.Extensions
 
             services.AddScoped<IWorkTimeTrackerContext, WorkTimeTrackerContext>();
             services.AddScoped<IWorkTimeTrackerRepository, WorkTimeTrackerRepository>();
-
+            
             services.AddFluentValidationAutoValidation();
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddAutoMapper(Assembly.GetExecutingAssembly());

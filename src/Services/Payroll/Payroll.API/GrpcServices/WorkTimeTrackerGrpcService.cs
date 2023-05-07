@@ -21,9 +21,6 @@ namespace Payroll.API.GrpcServices
 
             foreach (var shiftDate in shiftsDate)
             {
-                var a = shiftDate.ToString(CultureInfo.InvariantCulture);
-                var b = response.CompletedShifts.Select(s => s.StartTime);
-
                 var shift = response.CompletedShifts.FirstOrDefault
                     (cs => parseToDateOnlyString(cs.StartTime) == parseToDateOnlyString(shiftDate.ToString(CultureInfo.InvariantCulture)) ||
                     parseToDateOnlyString(cs.EndTime) == parseToDateOnlyString(shiftDate.ToString(CultureInfo.InvariantCulture)));

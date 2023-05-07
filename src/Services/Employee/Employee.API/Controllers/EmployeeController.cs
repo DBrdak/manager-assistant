@@ -17,8 +17,8 @@ namespace Employee.API.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Entities.Employee>), 200)]
-        public async Task<ActionResult<IEnumerable<Entities.Employee>>>
-            GetEmployees() => Ok(await _repository.GetEmployees());
+        public async Task<ActionResult<IEnumerable<Entities.Employee>>> GetEmployees() => 
+            Ok(await _repository.GetEmployees());
 
         [HttpPost]
         [ProducesResponseType(typeof(Entities.Employee), (int)HttpStatusCode.OK)]

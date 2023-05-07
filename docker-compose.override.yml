@@ -73,7 +73,36 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "DatabaseSettings__ConnectionString=mongodb://worktimetrackerdb:27017"
+      - "Uris__EmployeeUrl=http://employee.api"
     depends_on:
       - worktimetrackerdb
     ports:
       - "8003:80"
+
+  ocelotapigateway:
+    container_name: ocelotapigateway
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - payroll.api
+      - worktimetracker.grpc
+      - employee.api
+      - workschedule.api
+      - manageraggregator
+    ports:
+      - "8010:80"
+
+  manageraggregator:
+    container_name: manageraggregator
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ApiSettings:EmployeeUrl=http://employee.api"
+      - "ApiSettings:PayrollUrl=http://payroll.api"
+      - "GrpcSettings__WorkTimeTrackerUrl=http://worktimetracker.grpc"
+    depends_on:
+      - payroll.api
+      - worktimetracker.grpc
+      - employee.api
+    ports:
+      - "8004:80"
+

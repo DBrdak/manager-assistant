@@ -37,6 +37,20 @@ services:
       context: .
       dockerfile: src/Services/WorkTimeTracker/WorkTimeTracker.Grpc/Dockerfile
 
+  ocelotapigateway:
+    image: ${DOCKER_REGISTRY-}ocelotapigateway
+    build:
+      context: .
+      dockerfile: src/ApiGateways/OcelotApiGateway/Dockerfile
+
+  manageraggregator:
+    image: ${DOCKER_REGISTRY-}manageraggregator
+    build:
+      context: .
+      dockerfile: src/ApiGateways/ManagerAggregator/Dockerfile
+
 volumes:
   mongo_data:
   postgres_data:
+
+
